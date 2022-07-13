@@ -1,5 +1,6 @@
-package BLL;
+package BLL.entityManager;
 
+import BLL.BLLException;
 import DAL.DALException;
 import DAL.DAOFactory;
 import DAL.entityDAO.FilmDAO;

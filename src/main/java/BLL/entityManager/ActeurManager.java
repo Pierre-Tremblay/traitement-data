@@ -1,5 +1,6 @@
-package BLL;
+package BLL.entityManager;
 
+import BLL.BLLException;
 import DAL.DALException;
 import DAL.DAOFactory;
 import DAL.entityDAO.ActeurDAO;
@@ -28,17 +29,17 @@ public class ActeurManager {
     }
 
     // Create
-    public Acteur create(Acteur acteur) throws BLLException {
+    public void  create(Acteur acteur) throws BLLException, DALException {
         try {
-            if (acteurDAO.selectById(acteur.getId()) == null && acteur.getId() != 0) {
+            if (acteurDAO.selectByIdentite(acteur.getIdentite()) == null && acteur.getIdentite() != null) {
                 acteurDAO.create(acteur);
-            } else {
-                return null;
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'acteur", e);
         }
-        return acteur;
+
+
+
     }
     // Read
     public List<Acteur> selectAll() throws BLLException {

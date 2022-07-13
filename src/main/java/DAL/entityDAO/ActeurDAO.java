@@ -1,6 +1,9 @@
-package DAL;
+package DAL.entityDAO;
 
-import BLL.PersistenceManager;
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
 import Entity.Acteur;
 
 import javax.persistence.EntityManager;
@@ -50,9 +53,17 @@ public class ActeurDAO implements DAO<Acteur> {
     }
 
     @Override
-    public Acteur selectById(int id) throws DALException {
+    public Acteur selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Acteur a WHERE a.id = :id", Acteur.class).setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Acteur selectByIdentite(String identite) throws DALException {
+        try {
+            return em.createQuery("SELECT a FROM Acteur a WHERE a.identite = :identite", Acteur.class).setParameter("identite", identite).getSingleResult();
         } catch (Exception e) {
             return null;
         }

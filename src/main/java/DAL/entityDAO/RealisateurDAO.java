@@ -1,7 +1,9 @@
-package DAL;
+package DAL.entityDAO;
 
-import BLL.PersistenceManager;
-import Entity.Realisateur;
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
 import Entity.Realisateur;
 
 import javax.persistence.EntityManager;
@@ -50,7 +52,7 @@ public class RealisateurDAO implements DAO<Realisateur> {
     }
 
     @Override
-    public Realisateur selectById(int id) throws DALException {
+    public Realisateur selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Realisateur a WHERE a.id = :id", Realisateur.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {

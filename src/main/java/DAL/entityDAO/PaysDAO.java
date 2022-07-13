@@ -1,7 +1,9 @@
-package DAL;
+package DAL.entityDAO;
 
-import BLL.PersistenceManager;
-import Entity.Pays;
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
 import Entity.Pays;
 
 import javax.persistence.EntityManager;
@@ -50,7 +52,7 @@ public class PaysDAO implements DAO<Pays> {
     }
 
     @Override
-    public Pays selectById(int id) throws DALException {
+    public Pays selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Pays a WHERE a.id = :id", Pays.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {

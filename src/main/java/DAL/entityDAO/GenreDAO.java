@@ -1,6 +1,9 @@
-package DAL;
+package DAL.entityDAO;
 
-import BLL.PersistenceManager;
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
 import Entity.Genre;
 
 import javax.persistence.EntityManager;
@@ -49,7 +52,7 @@ public class GenreDAO implements DAO<Genre> {
     }
 
     @Override
-    public Genre selectById(int id) throws DALException {
+    public Genre selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Genre a WHERE a.id = :id", Genre.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {

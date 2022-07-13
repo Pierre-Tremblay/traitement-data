@@ -1,15 +1,23 @@
-package DAL;
+package DAL.entityDAO;
 
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
+import Entity.Acteur;
 import Entity.Film;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import static DAL.ConnexionJPA.em;
 
 public class FilmDAO implements DAO<Film> {
+    EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
+    EntityManager em = emf.createEntityManager();
     @Override
     public void create(Film objet) throws DALException {
         try {
@@ -46,11 +54,12 @@ public class FilmDAO implements DAO<Film> {
     }
 
     @Override
-    public Film selectById(int id) throws DALException {
+    public Film selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Film a WHERE a.id = :id", Film.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {
             return null;
         }
     }
+
 }

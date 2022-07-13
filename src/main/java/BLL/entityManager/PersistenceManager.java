@@ -1,4 +1,4 @@
-package BLL;
+package BLL.entityManager;
 
 import javax.persistence.EntityManagerFactory;
 

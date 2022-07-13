@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class TestAppliImdb {
+public class TestAppliImdb {
+    public static void main(String[] args) {
+
+    }
 }

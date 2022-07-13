@@ -1,7 +1,9 @@
-package DAL;
+package DAL.entityDAO;
 
-import BLL.PersistenceManager;
-import Entity.Role;
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
 import Entity.Role;
 
 import javax.persistence.EntityManager;
@@ -50,7 +52,7 @@ public class RoleDAO implements DAO<Role> {
     }
 
     @Override
-    public Role selectById(int id) throws DALException {
+    public Role selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Role a WHERE a.id = :id", Role.class).setParameter("id", id).getSingleResult();
         } catch (Exception e) {
