@@ -62,4 +62,11 @@ public class FilmDAO implements DAO<Film> {
         }
     }
 
+    public Film selectByIdentifiant(String identifiant) throws DALException {
+        try {
+            return em.createQuery("SELECT a FROM Film a WHERE a.identifiant = :identifiant", Film.class).setParameter("identifiant", identifiant).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

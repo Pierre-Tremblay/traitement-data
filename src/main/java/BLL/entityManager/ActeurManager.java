@@ -29,18 +29,19 @@ public class ActeurManager {
     }
 
     // Create
-    public void  create(Acteur acteur) throws BLLException, DALException {
+    public void create(Acteur acteur) throws BLLException, DALException {
         try {
-            if (acteurDAO.selectByIdentite(acteur.getIdentite()) == null && acteur.getIdentite() != null) {
+            if (acteur.getIdentifiant() != null && acteurDAO.selectByIdentifiant(acteur.getIdentifiant()) == null ) {
                 acteurDAO.create(acteur);
+
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'acteur", e);
         }
 
 
-
     }
+
     // Read
     public List<Acteur> selectAll() throws BLLException {
         try {
@@ -57,6 +58,7 @@ public class ActeurManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la selection de l'acteur", e);
         }
     }
+
     //    Update
     public void update(Acteur acteur) throws BLLException {
         try {

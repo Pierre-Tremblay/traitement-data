@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,7 +17,7 @@ public class Acteur {
 
 
     @JsonProperty("identite")
-    @Column(name = "identite")
+    @Column(name = "identite", unique = true)
     private String identite;
 
     @JsonProperty("naissance")
@@ -31,12 +32,12 @@ public class Acteur {
     private String identifiant;
 
     @JsonProperty("roles")
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "acteurs_roles", joinColumns = @JoinColumn(name = "id_acteur", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"))
-    private Set<Role> roles;
-    @JsonProperty("films")
-    @ManyToMany(mappedBy = "acteurs", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Film> films;
+    private Set<Role> roles = new HashSet<>();
+    @JsonProperty("film")
+    @ManyToMany(mappedBy = "acteurs")
+    private Set<Film> films =new HashSet<>();
 
 
     public Acteur() {

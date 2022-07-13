@@ -11,10 +11,6 @@ public class DAOFactory {
         return new FilmDAO();
     }
 
-    public static GenreDAO getGenreDAO() {
-        return new GenreDAO();
-    }
-
     public static LieuTournageDAO getLieuTournageDAO() {
         return new LieuTournageDAO();
     }
@@ -26,6 +22,7 @@ public class DAOFactory {
     public static RealisateurDAO getRealisateurDAO() {
         return new RealisateurDAO();
     }
+
     public static RoleDAO getRoleDAO() {
         return new RoleDAO();
     }

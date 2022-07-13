@@ -31,7 +31,7 @@ public class RealisateurManager {
     // Create
     public Realisateur create(Realisateur realisateur) throws BLLException {
         try {
-            if (realisateurDAO.selectById(realisateur.getId()) == null && realisateur.getId() != 0) {
+            if (realisateurDAO.selectByIdentite(realisateur.getIdentite()) == null && realisateur.getIdentite() != null) {
                 realisateurDAO.create(realisateur);
             } else {
                 return null;

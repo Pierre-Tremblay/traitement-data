@@ -22,7 +22,7 @@ public class Pays {
     @Column(name = "url")
     private String url;
     @JsonProperty("film")
-    @OneToMany(mappedBy = "pays",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pays")
     private Set<Film>films;
 
 

@@ -4,6 +4,7 @@ import BLL.entityManager.PersistenceManager;
 import DAL.ConnexionJPA;
 import DAL.DALException;
 import DAL.DAO;
+import Entity.Film;
 import Entity.Realisateur;
 
 import javax.persistence.EntityManager;
@@ -55,6 +56,13 @@ public class RealisateurDAO implements DAO<Realisateur> {
     public Realisateur selectById(long id) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Realisateur a WHERE a.id = :id", Realisateur.class).setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public Realisateur selectByIdentite(String identite) throws DALException {
+        try {
+            return em.createQuery("SELECT a FROM Realisateur a WHERE a.identite = :identite", Realisateur.class).setParameter("identite", identite).getSingleResult();
         } catch (Exception e) {
             return null;
         }

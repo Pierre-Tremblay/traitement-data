@@ -22,7 +22,9 @@ public class LieuTournage {
     @JsonProperty("etatDept")
     @Column(name = "etatDept")
     private String etatDept;
-    @OneToMany(mappedBy = "lieuTournage",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @JsonProperty("films")
+    @OneToMany(mappedBy = "lieuTournage")
     private Set<Film> films = new HashSet<Film>();
 
     public LieuTournage() {
@@ -51,7 +53,6 @@ public class LieuTournage {
     public void setId(int id) {
         this.id = id;
     }
-
 
 
     public Set<Film> getFilms() {

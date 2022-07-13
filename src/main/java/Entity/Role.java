@@ -18,7 +18,7 @@ public class Role {
     @Column(name = "characterName")
     private String characterName;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "films_roles", joinColumns = @JoinColumn(name = "id_roles", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"))
     private Set<Film> films;
     @ManyToMany(mappedBy = "roles")

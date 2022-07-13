@@ -41,23 +41,18 @@ public class Film {
     @JoinColumn(name = "lieuTournage")
     private LieuTournage lieuTournage;
     @JsonProperty("realisateurs")
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "films_realisateurs", joinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_realisateur", referencedColumnName = "id"))
     private Set<Realisateur> realisateurs;
     @JsonProperty("anneeSortie")
     @Column(name = "anneeSortie")
     private String anneeSortie;
-//    @JsonProperty("genres")
-//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @JoinTable(name = "films_genres", joinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_genre", referencedColumnName = "id"))
-//    private Set<Genre> genres;
-
     @JsonProperty("roles")
     @ManyToMany(mappedBy = "films")
     private Set<Role> roles;
     @JsonProperty("acteurs")
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "film_acteur", joinColumns = @JoinColumn(name = "film_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "acteur_id", referencedColumnName = "id"))
+    @ManyToMany
+    @JoinTable(name = "films_acteurs", joinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_acteur", referencedColumnName = "id"))
     private Set<Acteur> acteurs;
 
     @ElementCollection(targetClass = String.class)
@@ -148,13 +143,7 @@ public class Film {
         this.realisateurs = realisateurs;
     }
 
-//    public Set<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(Set<Genre> genres) {
-//        this.genres = genres;
-//    }
+
 
     public List<String> getGenres() {
         return genres;
@@ -193,8 +182,9 @@ public class Film {
         sb.append(", lieuTournage=").append(lieuTournage);
         sb.append(", realisateurs=").append(realisateurs);
         sb.append(", anneeSortie='").append(anneeSortie).append('\'');
-//        sb.append(", genres=").append(genres);
-        sb.append(", Roles=").append(roles);
+        sb.append(", roles=").append(roles);
+        sb.append(", acteurs=").append(acteurs);
+        sb.append(", genres=").append(genres);
         sb.append('}');
         return sb.toString();
     }
