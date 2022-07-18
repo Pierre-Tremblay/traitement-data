@@ -13,6 +13,7 @@ public class Realisateur {
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     @JsonProperty("identite")
     @Column(name = "identite")
     private String identite;
@@ -20,6 +21,7 @@ public class Realisateur {
     @JsonProperty("url")
     @Column(name = "url")
     private String url;
+    
     @ManyToMany(mappedBy = "realisateurs")
     private Set<Film> films;
 
@@ -68,4 +70,29 @@ public class Realisateur {
         sb.append('}');
         return sb.toString();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((identite == null) ? 0 : identite.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Realisateur other = (Realisateur) obj;
+		if (identite == null) {
+			if (other.identite != null)
+				return false;
+		} else if (!identite.equals(other.identite))
+			return false;
+		return true;
+	}
 }

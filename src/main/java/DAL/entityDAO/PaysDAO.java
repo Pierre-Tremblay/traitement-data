@@ -59,4 +59,12 @@ public class PaysDAO implements DAO<Pays> {
             return null;
         }
     }
+
+	public Pays selectByNom(String nom) {
+		 try {
+	            return em.createQuery("SELECT a FROM Pays a WHERE a.nom = :nom", Pays.class).setParameter("nom", nom).getSingleResult();
+	        } catch (Exception e) {
+	            return null;
+	        }
+	}
 }

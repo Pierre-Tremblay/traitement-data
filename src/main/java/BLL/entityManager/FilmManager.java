@@ -31,10 +31,11 @@ public class FilmManager {
     // Create
     public Film create(Film film) throws BLLException {
         try {
-            if (filmDAO.selectByIdentifiant(film.getIdentifiant()) == null && film.getIdentifiant() != null) {
+        	Film filmDB = filmDAO.selectByIdentifiant(film.getIdentifiant());
+            if (filmDB == null) {
                 filmDAO.create(film);
             } else {
-                return null;
+            	film.setId(filmDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion du film", e);

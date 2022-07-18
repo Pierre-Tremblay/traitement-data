@@ -17,7 +17,7 @@ public class Acteur {
 
 
     @JsonProperty("identite")
-    @Column(name = "identite", unique = true)
+    @Column(name = "identite")
     private String identite;
 
     @JsonProperty("naissance")
@@ -27,8 +27,9 @@ public class Acteur {
     @JsonProperty("url")
     @Column(name = "url")
     private String url;
+    
     @JsonProperty("id")
-    @Column(name = "identifiant")
+    @Column(name = "identifiant", unique=true)
     private String identifiant;
 
     @JsonProperty("roles")
@@ -113,5 +114,36 @@ public class Acteur {
         sb.append('}');
         return sb.toString();
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((identifiant == null) ? 0 : identifiant.hashCode());
+		result = prime * result + ((identite == null) ? 0 : identite.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Acteur other = (Acteur) obj;
+		if (identifiant == null) {
+			if (other.identifiant != null)
+				return false;
+		} else if (!identifiant.equals(other.identifiant))
+			return false;
+		if (identite == null) {
+			if (other.identite != null)
+				return false;
+		} else if (!identite.equals(other.identite))
+			return false;
+		return true;
+	}
 }
 

@@ -31,10 +31,11 @@ public class PaysManager {
     // Create
     public Pays create(Pays pays) throws BLLException {
         try {
-            if (paysDAO.selectById(pays.getId()) == null && pays.getId() != 0) {
+        	Pays paysDB = paysDAO.selectByNom(pays.getNom());
+            if (paysDB == null) {
                 paysDAO.create(pays);
             } else {
-                return null;
+            	pays.setId(paysDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'pays", e);

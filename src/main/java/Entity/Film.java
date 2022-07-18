@@ -1,12 +1,25 @@
 package Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Entity
@@ -18,38 +31,48 @@ public class Film {
     private long id;
 
     @JsonProperty("pays")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "id_pays")
     private Pays pays;
+    
     @JsonProperty("nom")
     @Column(name = "nom")
     private String nom;
+   
     @JsonProperty("url")
     @Column(name = "url")
     private String url;
+    
     @JsonProperty("plot")
     @Column(name = "plot")
     private String plot;
+    
     @JsonProperty("id")
-    @Column(name = "identifiant")
+    @Column(name = "identifiant", unique=true)
     private String identifiant;
+    
     @JsonProperty("langue")
     @Column(name = "langue")
     private String langue;
+    
     @JsonProperty("lieuTournage")
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "lieuTournage")
     private LieuTournage lieuTournage;
+    
     @JsonProperty("realisateurs")
     @ManyToMany
     @JoinTable(name = "films_realisateurs", joinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_realisateur", referencedColumnName = "id"))
     private Set<Realisateur> realisateurs;
+    
     @JsonProperty("anneeSortie")
     @Column(name = "anneeSortie")
     private String anneeSortie;
+   
     @JsonProperty("roles")
     @ManyToMany(mappedBy = "films")
     private Set<Role> roles;
+    
     @JsonProperty("acteurs")
     @ManyToMany
     @JoinTable(name = "films_acteurs", joinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_acteur", referencedColumnName = "id"))
@@ -176,16 +199,50 @@ public class Film {
         sb.append(", pays=").append(pays);
         sb.append(", nom='").append(nom).append('\'');
         sb.append(", url='").append(url).append('\'');
-        sb.append(", plot='").append(plot).append('\'');
         sb.append(", identifiant='").append(identifiant).append('\'');
         sb.append(", langue='").append(langue).append('\'');
         sb.append(", lieuTournage=").append(lieuTournage);
-        sb.append(", realisateurs=").append(realisateurs);
         sb.append(", anneeSortie='").append(anneeSortie).append('\'');
-        sb.append(", roles=").append(roles);
-        sb.append(", acteurs=").append(acteurs);
         sb.append(", genres=").append(genres);
         sb.append('}');
         return sb.toString();
     }
+
+	/** Setter
+	 * @param id the id to set
+	 */
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((identifiant == null) ? 0 : identifiant.hashCode());
+		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Film other = (Film) obj;
+		if (identifiant == null) {
+			if (other.identifiant != null)
+				return false;
+		} else if (!identifiant.equals(other.identifiant))
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		return true;
+	}
 }

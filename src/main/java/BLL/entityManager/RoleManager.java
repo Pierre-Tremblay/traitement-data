@@ -31,10 +31,11 @@ public class RoleManager {
     // Create
     public Role create(Role role) throws BLLException {
         try {
-            if (roleDAO.selectById(role.getId()) == null && role.getId() != 0) {
+        	Role roleDB = roleDAO.selectById(role.getId());
+            if (roleDB == null) {
                 roleDAO.create(role);
             } else {
-                return null;
+                role.setId(roleDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'role", e);

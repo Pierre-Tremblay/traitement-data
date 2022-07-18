@@ -5,6 +5,7 @@ import java.util.List;
 
 import BLL.entityManager.ActeurManager;
 import BLL.entityManager.FilmManager;
+import BLL.entityManager.PaysManager;
 import BLL.entityManager.RealisateurManager;
 import BLL.entityManager.RoleManager;
 import Entity.Acteur;
@@ -18,6 +19,8 @@ public class Acquisition {
         FilmManager filmManager = FilmManager.getInstance();
         RealisateurManager realisateurManager = RealisateurManager.getInstance();
         RoleManager roleManager = RoleManager.getInstance();
+        PaysManager paysManager = PaysManager.getInstance();
+        		
         try {
             List<Acteur> acteurList = ReadFileManager.readJsonFile();
 
@@ -25,6 +28,11 @@ public class Acquisition {
             	System.out.println(acteur);
                 for (Role role : acteur.getRoles()) {
                     for (Film film : role.getFilms()) {
+                    	
+                    	if (film.getPays()!=null) {
+                    		paysManager.create(film.getPays());
+                    	}
+                    	
                         for (Acteur acteurDuFilm : film.getActeurs()) {
                             acteurManager.create(acteurDuFilm);
                         }

@@ -1,18 +1,17 @@
 package DAL.entityDAO;
 
-import BLL.entityManager.PersistenceManager;
-import DAL.ConnexionJPA;
-import DAL.DALException;
-import DAL.DAO;
-import Entity.Acteur;
-import Entity.Film;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+
+import BLL.entityManager.PersistenceManager;
+import DAL.ConnexionJPA;
+import DAL.DALException;
+import DAL.DAO;
+import Entity.Film;
 
 
 public class FilmDAO implements DAO<Film> {
@@ -20,16 +19,11 @@ public class FilmDAO implements DAO<Film> {
     EntityManager em = emf.createEntityManager();
     @Override
     public void create(Film objet) throws DALException {
-        try {
-            ConnexionJPA.getProperty().getTransaction().begin();
-            ConnexionJPA.getProperty().persist(objet);
-            ConnexionJPA.getProperty().getTransaction().commit();
-
-        } catch (DALException e) {
-            throw new DALException("ERREUR SURVENUE : Problème lors de la création d'un film");
-        }
+        ConnexionJPA.getProperty().getTransaction().begin();
+        ConnexionJPA.getProperty().persist(objet);
+        ConnexionJPA.getProperty().getTransaction().commit();
     }
-
+    
     @Override
     public void update(Film objet) throws DALException {
 
@@ -42,7 +36,6 @@ public class FilmDAO implements DAO<Film> {
 
     @Override
     public List<Film> selectAll() throws DALException {
-        ResultSet rs;
         List<Film> filmList = new ArrayList<>();
         try {
             TypedQuery<Film> selectAll = ConnexionJPA.getProperty().createQuery("SELECT a FROM Film a", Film.class);
