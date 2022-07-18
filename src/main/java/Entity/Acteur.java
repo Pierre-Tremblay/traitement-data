@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "acteur")
 public class Acteur {
@@ -33,8 +34,7 @@ public class Acteur {
     private String identifiant;
 
     @JsonProperty("roles")
-    @ManyToMany
-    @JoinTable(name = "acteurs_roles", joinColumns = @JoinColumn(name = "id_acteur", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "acteur")
     private Set<Role> roles = new HashSet<>();
     
     @JsonProperty("film")
@@ -110,7 +110,6 @@ public class Acteur {
         sb.append(", url='").append(url).append('\'');
         sb.append(", identifiant='").append(identifiant).append('\'');
         sb.append(", roles=").append(roles);
-
         sb.append('}');
         return sb.toString();
     }

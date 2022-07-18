@@ -31,12 +31,11 @@ public class ActeurManager {
     // Create
     public void create(Acteur acteur) throws BLLException, DALException {
         try {
-        	Acteur acteurDB = acteurDAO.selectByIdentifiant(acteur.getIdentifiant());
-            if (acteurDB == null ) {
+            Acteur acteurDB = acteurDAO.selectByIdentifiant(acteur.getIdentifiant());
+            if (acteurDB == null) {
                 acteurDAO.create(acteur);
-            }
-            else {
-            	acteur.setId(acteurDB.getId());
+            } else {
+                acteur.setId(acteurDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'acteur", e);
@@ -79,4 +78,21 @@ public class ActeurManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la suppression de l'acteur", e);
         }
     }
+
+    public List<Acteur> selectActorsByFilm(String nom) throws BLLException {
+        try {
+            return acteurDAO.selectActorsByFilm(nom);
+        } catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération de l'acteur", e);
+        }
+    }
+
+    public List<Acteur> selectActorsBetweenTwoFilms(String firstFilm, String secondFilm) throws BLLException {
+        try {
+            return acteurDAO.selectActorsBetweenTwoFilms(firstFilm, secondFilm);
+        } catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération de l'acteur", e);
+        }
+    }
+
 }

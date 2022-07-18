@@ -21,9 +21,10 @@ public class Role {
     @ManyToMany
     @JoinTable(name = "films_roles", joinColumns = @JoinColumn(name = "id_roles", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"))
     private Set<Film> films;
-    
-    @ManyToMany(mappedBy = "roles")
-    private Set<Acteur> acteurs;
+
+    @ManyToOne
+    @JoinColumn(name = "id_acteur")
+    private Acteur acteur;
 
     public Role() {
     }
@@ -53,14 +54,13 @@ public class Role {
         this.films = films;
     }
 
-    public Set<Acteur> getActeurs() {
-        return acteurs;
+    public Acteur getActeurs() {
+        return acteur;
     }
 
-    public void setActeurs(Set<Acteur> acteurs) {
-        this.acteurs = acteurs;
+    public void setActeurs(Acteur acteurs) {
+        this.acteur = acteurs;
     }
-
 
     @Override
     public String toString() {
@@ -68,7 +68,7 @@ public class Role {
         sb.append("id=").append(id);
         sb.append(", characterName='").append(characterName).append('\'');
         sb.append(", films=").append(films);
-        sb.append(", acteurs=").append(acteurs);
+        sb.append(", acteurs=").append(acteur);
         sb.append('}');
         return sb.toString();
     }

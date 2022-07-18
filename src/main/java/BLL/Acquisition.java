@@ -48,7 +48,7 @@ public class Acquisition {
                 acteurManager.create(acteur);
             }
 
-            System.out.println(acteurList.size());
+//            System.out.println(acteurList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }

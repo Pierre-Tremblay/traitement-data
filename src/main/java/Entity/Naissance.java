@@ -3,7 +3,7 @@ package Entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Embeddable;
-import java.util.Date;
+
 @Embeddable
 public class Naissance {
     @JsonProperty("dateNaissance")

@@ -72,7 +72,35 @@ public class FilmManager {
         try {
             filmDAO.delete(film);
         } catch (DALException e) {
-            throw new BLLException("ERREUR SURVENUE : Problème lors de la suppression de l'film", e);
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la suppression de films", e);
+        }
+    }
+    public List<Film> getFilmsByActor(String name) throws BLLException {
+        try {
+            return  filmDAO.selectFilmsByActor(name);
+        }catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération des filsm de l'acteur");
+        }
+    }
+    public List<Film> selectFilmsByTwoDate(String firstYear, String secondYear) throws BLLException {
+        try {
+            return filmDAO.selectFilmsByTwoDate(firstYear, secondYear);
+        } catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération du film", e);
+        }
+    }
+    public List<Film> selectFilmsBetweenTwoActors(String firstActeur, String secondActeur) throws BLLException {
+        try {
+            return filmDAO.selectFilmsBetweenTwoActors(firstActeur, secondActeur);
+        } catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération du film", e);
+        }
+    }
+    public List<Film> selectFilmsByTwoDateWithActor(String firstYear, String secondYear, String acteur) throws BLLException {
+        try {
+            return filmDAO.selectFilmsByTwoDateWithActor(firstYear, secondYear, acteur);
+        } catch (DALException e) {
+            throw new BLLException("ERREUR SURVENUE : Problème  lors de la récupération des films entre deux dates et un acteur");
         }
     }
 }

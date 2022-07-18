@@ -62,4 +62,32 @@ public class FilmDAO implements DAO<Film> {
             return null;
         }
     }
+    public List<Film> selectFilmsByActor(String actor) throws DALException {
+        try {
+            return em.createQuery("SELECT DISTINCT f FROM Film f JOIN f.acteurs a JOIN FETCH f.genres WHERE a.identite = :acteur", Film.class).setParameter("acteur",actor).getResultList();
+        }catch (Exception e) {
+            throw new DALException("ERREUR SURVENUE : Problème lors de la récupération de la liste de films pour un acteur donnée");
+        }
+    }
+    public List<Film> selectFilmsByTwoDate(String firstYear, String secondYear) throws DALException {
+        try {
+            return em.createQuery("SELECT f FROM Film f WHERE f.anneeSortie >= :firstYear AND f.anneeSortie <= :secondYear ORDER BY anneeSortie ASC", Film.class).setParameter("firstYear", firstYear).setParameter("secondYear", secondYear).getResultList();
+        } catch (Exception e) {
+            throw new DALException("ERREUR SURVENUE : Problème lors de la récupération des films entre deux années");
+        }
+    }
+    public List<Film> selectFilmsBetweenTwoActors(String firstActeur, String secondActeur) throws DALException {
+        try {
+            return em.createQuery("SELECT f FROM Film f JOIN f.acteurs a WHERE a.identite = :firstActeur AND f.id IN (SELECT f.id FROM Film f JOIN f.acteurs a WHERE a.identite = :secondActeur ORDER BY f.anneeSortie ASC)", Film.class).setParameter("firstActeur", firstActeur).setParameter("secondActeur", secondActeur).getResultList();
+        } catch (Exception e) {
+            throw new DALException("ERREUR SURVENUE : Problème lors de la récupération des films des acteurs");
+        }
+    }
+    public List<Film> selectFilmsByTwoDateWithActor(String firstYear, String secondYear, String acteur) throws DALException {
+        try {
+            return em.createQuery("SELECT f FROM Film f JOIN f.acteurs a WHERE a.identite=:acteur AND f.id IN (SELECT f.id FROM Film f WHERE f.anneeSortie BETWEEN :firstYear AND :secondYear)", Film.class).setParameter("acteur", acteur).setParameter("firstYear", firstYear).setParameter("secondYear", secondYear).getResultList();
+        } catch (Exception e) {
+            throw new DALException("ERREUR SURVENUE : Problème  lors de la récupération des films entre deux dates et un acteur");
+        }
+    }
 }
