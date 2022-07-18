@@ -21,6 +21,7 @@ public class Role {
     @ManyToMany
     @JoinTable(name = "films_roles", joinColumns = @JoinColumn(name = "id_roles", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_film", referencedColumnName = "id"))
     private Set<Film> films;
+    
     @ManyToMany(mappedBy = "roles")
     private Set<Acteur> acteurs;
 

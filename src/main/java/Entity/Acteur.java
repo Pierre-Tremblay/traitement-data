@@ -35,6 +35,7 @@ public class Acteur {
     @ManyToMany
     @JoinTable(name = "acteurs_roles", joinColumns = @JoinColumn(name = "id_acteur", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"))
     private Set<Role> roles = new HashSet<>();
+    
     @JsonProperty("film")
     @ManyToMany(mappedBy = "acteurs")
     private Set<Film> films =new HashSet<>();

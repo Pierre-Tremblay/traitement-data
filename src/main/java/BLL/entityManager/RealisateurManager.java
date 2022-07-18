@@ -29,17 +29,17 @@ public class RealisateurManager {
     }
 
     // Create
-    public Realisateur create(Realisateur realisateur) throws BLLException {
+    public void create(Realisateur realisateur) throws BLLException {
         try {
-            if (realisateurDAO.selectByIdentite(realisateur.getIdentite()) == null && realisateur.getIdentite() != null) {
+        	Realisateur realisateurDB = realisateurDAO.selectByIdentite(realisateur.getIdentite());
+            if (realisateurDB==null) {
                 realisateurDAO.create(realisateur);
             } else {
-                return null;
+            	realisateur.setId(realisateurDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'realisateur", e);
         }
-        return realisateur;
     }
     // Read
     public List<Realisateur> selectAll() throws BLLException {

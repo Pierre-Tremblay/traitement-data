@@ -31,9 +31,12 @@ public class ActeurManager {
     // Create
     public void create(Acteur acteur) throws BLLException, DALException {
         try {
-            if (acteur.getIdentifiant() != null && acteurDAO.selectByIdentifiant(acteur.getIdentifiant()) == null ) {
+        	Acteur acteurDB = acteurDAO.selectByIdentifiant(acteur.getIdentifiant());
+            if (acteurDB == null ) {
                 acteurDAO.create(acteur);
-
+            }
+            else {
+            	acteur.setId(acteurDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'acteur", e);
