@@ -13,9 +13,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Classe PaysDAO qui permet la gestion des pays en BDD
+ */
 public class PaysDAO implements DAO<Pays> {
     EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
+
+    /*
+     * Création pays en BDD
+     */
     @Override
     public void create(Pays objet) throws DALException {
         try {
@@ -28,16 +35,25 @@ public class PaysDAO implements DAO<Pays> {
         }
     }
 
+    /*
+     * Mise à jour du pays en BDD
+     */
     @Override
     public void update(Pays objet) throws DALException {
-// non utilisé
+    // non utilisé
     }
 
+    /*
+     * Suppression du pays en BDD
+     */
     @Override
     public void delete(Pays objet) throws DALException {
-// non utilisé
+    // non utilisé
     }
 
+    /*
+     * Selection de l'ensemble des pays en BDD
+     */
     @Override
     public List<Pays> selectAll() throws DALException {
         ResultSet rs;
@@ -51,6 +67,9 @@ public class PaysDAO implements DAO<Pays> {
         return paysList;
     }
 
+    /*
+     * Selection du pays par son ID en BDD
+     */
     @Override
     public Pays selectById(long id) throws DALException {
         try {
@@ -60,11 +79,14 @@ public class PaysDAO implements DAO<Pays> {
         }
     }
 
-	public Pays selectByNom(String nom) {
-		 try {
-	            return em.createQuery("SELECT a FROM Pays a WHERE a.nom = :nom", Pays.class).setParameter("nom", nom).getSingleResult();
-	        } catch (Exception e) {
-	            return null;
-	        }
-	}
+    /*
+     * Selection du pays par son nom en BDD
+     */
+    public Pays selectByNom(String nom) {
+        try {
+            return em.createQuery("SELECT a FROM Pays a WHERE a.nom = :nom", Pays.class).setParameter("nom", nom).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

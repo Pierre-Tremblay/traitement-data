@@ -7,16 +7,23 @@ import DAL.entityDAO.ActeurDAO;
 import Entity.Acteur;
 
 import java.util.List;
-
+/**
+ * Classe ActeurManager qui permet la gestion des requêtes concernant les acteurs
+ */
 public class ActeurManager {
     public static volatile ActeurManager instance;
     private static ActeurDAO acteurDAO;
 
-
+    /*
+     * Constructeur de la classe ActeurManager
+     */
     private ActeurManager() {
         acteurDAO = DAOFactory.getActeurDAO();
     }
 
+    /*
+     * Retour de l'instance de la classe ActeurManager
+     */
     public static ActeurManager getInstance() {
         if (instance == null) {
             synchronized (ActeurManager.class) {
@@ -28,7 +35,9 @@ public class ActeurManager {
         return instance;
     }
 
-    // Create
+    /*
+     * Création de l'acteur
+     */
     public void create(Acteur acteur) throws BLLException, DALException {
         try {
             Acteur acteurDB = acteurDAO.selectByIdentifiant(acteur.getIdentifiant());
@@ -44,7 +53,9 @@ public class ActeurManager {
 
     }
 
-    // Read
+    /*
+     * Selection de l'ensemble des acteurs
+     */
     public List<Acteur> selectAll() throws BLLException {
         try {
             return acteurDAO.selectAll();
@@ -52,7 +63,9 @@ public class ActeurManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la récupération des acteurs", e);
         }
     }
-
+    /*
+     * Selection d'un acteur par son ID
+     */
     public Acteur selectById(long id) throws BLLException {
         try {
             return acteurDAO.selectById(id);
@@ -61,7 +74,9 @@ public class ActeurManager {
         }
     }
 
-    //    Update
+    /*
+     * Mise à jour de l'acteur
+     */
     public void update(Acteur acteur) throws BLLException {
         try {
             acteurDAO.update(acteur);
@@ -70,7 +85,9 @@ public class ActeurManager {
         }
     }
 
-    //    Delete
+    /*
+     * Suppression de l'acteur
+     */
     public void delete(Acteur acteur) throws BLLException {
         try {
             acteurDAO.delete(acteur);
@@ -79,6 +96,9 @@ public class ActeurManager {
         }
     }
 
+    /*
+     * Selection d'un acteur par ses films
+     */
     public List<Acteur> selectActorsByFilm(String nom) throws BLLException {
         try {
             return acteurDAO.selectActorsByFilm(nom);
@@ -87,6 +107,9 @@ public class ActeurManager {
         }
     }
 
+    /*
+     * Selection d'acteurs qui ont en commun deux films
+     */
     public List<Acteur> selectActorsBetweenTwoFilms(String firstFilm, String secondFilm) throws BLLException {
         try {
             return acteurDAO.selectActorsBetweenTwoFilms(firstFilm, secondFilm);

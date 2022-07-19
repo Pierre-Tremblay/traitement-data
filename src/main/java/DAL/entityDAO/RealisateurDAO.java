@@ -4,7 +4,6 @@ import BLL.entityManager.PersistenceManager;
 import DAL.ConnexionJPA;
 import DAL.DALException;
 import DAL.DAO;
-import Entity.Film;
 import Entity.Realisateur;
 
 import javax.persistence.EntityManager;
@@ -14,9 +13,16 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe RealisateurDAO qui permet la gestion des réalisateurs en BDD
+ */
 public class RealisateurDAO implements DAO<Realisateur> {
     EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
+
+    /*
+     * Création réalisateur en BDD
+     */
     @Override
     public void create(Realisateur objet) throws DALException {
         try {
@@ -29,16 +35,25 @@ public class RealisateurDAO implements DAO<Realisateur> {
         }
     }
 
+    /*
+     * Mise à jour du réalisateur en BDD
+     */
     @Override
     public void update(Realisateur objet) throws DALException {
-
+        //  non utilisé
     }
 
+    /*
+     * Suppression du réalisateur en BDD
+     */
     @Override
     public void delete(Realisateur objet) throws DALException {
-
+        //  non utilisé
     }
 
+    /*
+     * Selection de l'ensemble des réalisateurs en BDD
+     */
     @Override
     public List<Realisateur> selectAll() throws DALException {
         ResultSet rs;
@@ -52,6 +67,9 @@ public class RealisateurDAO implements DAO<Realisateur> {
         return realisateurList;
     }
 
+    /*
+     * Selection d'un réalisateur par son ID en BDD
+     */
     @Override
     public Realisateur selectById(long id) throws DALException {
         try {
@@ -60,6 +78,10 @@ public class RealisateurDAO implements DAO<Realisateur> {
             return null;
         }
     }
+
+    /*
+     * Selection d'un réalisateur par son nom en BDD
+     */
     public Realisateur selectByIdentite(String identite) throws DALException {
         try {
             return em.createQuery("SELECT a FROM Realisateur a WHERE a.identite = :identite", Realisateur.class).setParameter("identite", identite).getSingleResult();

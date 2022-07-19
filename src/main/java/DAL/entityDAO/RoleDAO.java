@@ -13,9 +13,15 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe RoleDAO qui permet la gestion des roles en BDD
+ */
 public class RoleDAO implements DAO<Role> {
     EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
+    /*
+     * Création role en BDD
+     */
     @Override
     public void create(Role objet) throws DALException {
         try {
@@ -28,16 +34,25 @@ public class RoleDAO implements DAO<Role> {
         }
     }
 
+    /*
+     * Mise à jour du role en BDD
+     */
     @Override
     public void update(Role objet) throws DALException {
 // non utilisé
     }
 
+    /*
+     * Suppression du role en BDD
+     */
     @Override
     public void delete(Role objet) throws DALException {
 // non utilisé
     }
 
+    /*
+     * Selection de l'ensemble des roles en BDD
+     */
     @Override
     public List<Role> selectAll() throws DALException {
         ResultSet rs;
@@ -51,6 +66,9 @@ public class RoleDAO implements DAO<Role> {
         return roleList;
     }
 
+    /*
+     * Selection d'un role par son ID en BDD
+     */
     @Override
     public Role selectById(long id) throws DALException {
         try {
