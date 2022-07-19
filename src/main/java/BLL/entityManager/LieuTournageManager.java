@@ -8,15 +8,24 @@ import Entity.LieuTournage;
 
 import java.util.List;
 
+/**
+ * Classe LieuTournageManager qui permet la gestion des requêtes concernant les lieux de tournage
+ */
 public class LieuTournageManager {
     public static volatile LieuTournageManager instance;
     private static LieuTournageDAO lieuTournageDAO;
 
 
+    /*
+     * Constructeur de la classe LieuTournageManager
+     */
     private LieuTournageManager() {
         lieuTournageDAO = DAOFactory.getLieuTournageDAO();
     }
 
+    /*
+     * Retour de l'instance de la classe LieuTournageManager
+     */
     public static LieuTournageManager getInstance() {
         if (instance == null) {
             synchronized (LieuTournageManager.class) {
@@ -28,7 +37,9 @@ public class LieuTournageManager {
         return instance;
     }
 
-    // Create
+    /*
+     * Création du lieu de tournage
+     */
     public LieuTournage create(LieuTournage lieuTournage) throws BLLException {
         try {
             if (lieuTournageDAO.selectById(lieuTournage.getId()) == null && lieuTournage.getId() != 0) {
@@ -41,7 +52,10 @@ public class LieuTournageManager {
         }
         return lieuTournage;
     }
-    // Read
+
+    /*
+     * Selection de l'ensemble des lieu de tournage
+     */
     public List<LieuTournage> selectAll() throws BLLException {
         try {
             return lieuTournageDAO.selectAll();
@@ -50,6 +64,9 @@ public class LieuTournageManager {
         }
     }
 
+    /*
+     * Selection d'un lieu de tournage par son ID
+     */
     public LieuTournage selectById(long id) throws BLLException {
         try {
             return lieuTournageDAO.selectById(id);
@@ -57,7 +74,10 @@ public class LieuTournageManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la selection de l'lieuTournage", e);
         }
     }
-    //    Update
+
+    /*
+     * Mise à jour d'un lieu de tournage
+     */
     public void update(LieuTournage lieuTournage) throws BLLException {
         try {
             lieuTournageDAO.update(lieuTournage);
@@ -66,7 +86,9 @@ public class LieuTournageManager {
         }
     }
 
-    //    Delete
+    /*
+     * Suppression d'un lieu de tournage
+     */
     public void delete(LieuTournage lieuTournage) throws BLLException {
         try {
             lieuTournageDAO.delete(lieuTournage);

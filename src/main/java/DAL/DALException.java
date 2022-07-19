@@ -18,7 +18,7 @@ public class DALException extends Exception {
     }
 
     /*
-     * Constructeur de la class DALException avec le paramètre message et cause
+     * Constructeur de la class DALException avec les paramètres message et cause
      */
     public DALException(String message, Throwable cause) {
         super("Erreur DAL : " + message, cause);

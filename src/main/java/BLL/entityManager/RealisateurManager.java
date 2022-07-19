@@ -8,15 +8,23 @@ import Entity.Realisateur;
 
 import java.util.List;
 
+/**
+ * Classe RealisateurManager qui permet la gestion des requêtes concernant les réalisateurs
+ */
 public class RealisateurManager {
     public static volatile RealisateurManager instance;
     private static RealisateurDAO realisateurDAO;
 
-
+    /*
+     * Constructeur de la classe RealisateurManager
+     */
     private RealisateurManager() {
         realisateurDAO = DAOFactory.getRealisateurDAO();
     }
 
+    /*
+     * Retour de l'instance de la classe RealisateurManager
+     */
     public static RealisateurManager getInstance() {
         if (instance == null) {
             synchronized (RealisateurManager.class) {
@@ -28,20 +36,25 @@ public class RealisateurManager {
         return instance;
     }
 
-    // Create
+    /*
+     * Création du realisateur
+     */
     public void create(Realisateur realisateur) throws BLLException {
         try {
-        	Realisateur realisateurDB = realisateurDAO.selectByIdentite(realisateur.getIdentite());
-            if (realisateurDB==null) {
+            Realisateur realisateurDB = realisateurDAO.selectByIdentite(realisateur.getIdentite());
+            if (realisateurDB == null) {
                 realisateurDAO.create(realisateur);
             } else {
-            	realisateur.setId(realisateurDB.getId());
+                realisateur.setId(realisateurDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'realisateur", e);
         }
     }
-    // Read
+
+    /*
+     * Selection de l'ensemble des réalisateurs
+     */
     public List<Realisateur> selectAll() throws BLLException {
         try {
             return realisateurDAO.selectAll();
@@ -50,6 +63,9 @@ public class RealisateurManager {
         }
     }
 
+    /*
+     * Selection d'un réalisateur par son ID
+     */
     public Realisateur selectById(long id) throws BLLException {
         try {
             return realisateurDAO.selectById(id);
@@ -57,7 +73,10 @@ public class RealisateurManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la selection de l'realisateur", e);
         }
     }
-    //    Update
+
+    /*
+     * Mise à jour d'un réalisateur
+     */
     public void update(Realisateur realisateur) throws BLLException {
         try {
             realisateurDAO.update(realisateur);
@@ -66,7 +85,9 @@ public class RealisateurManager {
         }
     }
 
-    //    Delete
+    /*
+     * Suppression d'un réalisateur
+     */
     public void delete(Realisateur realisateur) throws BLLException {
         try {
             realisateurDAO.delete(realisateur);

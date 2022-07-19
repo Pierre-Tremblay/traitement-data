@@ -33,7 +33,7 @@ public class Film {
     @Id
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     /*
      * Pays du film
@@ -132,7 +132,7 @@ public class Film {
     /*
      * Getter de l'identifiant auto-incrementé du film
      */
-    public long getId() {
+    public int getId() {
         return id;
     }
 
