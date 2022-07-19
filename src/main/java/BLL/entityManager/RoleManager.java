@@ -8,15 +8,22 @@ import Entity.Role;
 
 import java.util.List;
 
+/**
+ * Classe RoleManager qui permet la gestion des requêtes concernant les roles
+ */
 public class RoleManager {
     public static volatile RoleManager instance;
     private static RoleDAO roleDAO;
 
-
+    /*
+     * Constructeur de la classe RoleManager
+     */
     private RoleManager() {
         roleDAO = DAOFactory.getRoleDAO();
     }
-
+    /*
+     * Retour de l'instance de la classe RoleManager
+     */
     public static RoleManager getInstance() {
         if (instance == null) {
             synchronized (RoleManager.class) {
@@ -28,20 +35,25 @@ public class RoleManager {
         return instance;
     }
 
-    // Create
+    /*
+     * Création du role
+     */
     public Role create(Role role) throws BLLException {
         try {
-            if (roleDAO.selectById(role.getId()) == null && role.getId() != 0) {
+        	Role roleDB = roleDAO.selectById(role.getId());
+            if (roleDB == null) {
                 roleDAO.create(role);
             } else {
-                return null;
+                role.setId(roleDB.getId());
             }
         } catch (DALException e) {
             throw new BLLException("Erreur lors de l'insertion de l'role", e);
         }
         return role;
     }
-    // Read
+    /*
+     * Selection de l'ensemble des roles
+     */
     public List<Role> selectAll() throws BLLException {
         try {
             return roleDAO.selectAll();
@@ -50,6 +62,9 @@ public class RoleManager {
         }
     }
 
+    /*
+     * Selection d'un role par son ID
+     */
     public Role selectById(long id) throws BLLException {
         try {
             return roleDAO.selectById(id);
@@ -57,7 +72,9 @@ public class RoleManager {
             throw new BLLException("ERREUR SURVENUE : Problème lors de la selection de l'role", e);
         }
     }
-    //    Update
+    /*
+     * Mise à jour d'un role
+     */
     public void update(Role role) throws BLLException {
         try {
             roleDAO.update(role);
@@ -66,7 +83,9 @@ public class RoleManager {
         }
     }
 
-    //    Delete
+    /*
+     * Suppression d'un role
+     */
     public void delete(Role role) throws BLLException {
         try {
             roleDAO.delete(role);

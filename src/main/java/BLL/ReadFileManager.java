@@ -10,7 +10,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Classe ReadFileManager qui permet la gestion d'un fichier JSON et
+ * d'en récupéré les informations sous forme d'un objet Java
+ */
 public class ReadFileManager {
+    /**
+     * Méthode readJsonFile qui permet la gestion d'un fichier JSON et
+     * d'en récupéré les informations sous forme d'un objet Java avec un
+     * retour sous la forme List<Acteur></Acteur>
+     */
     public static List<Acteur> readJsonFile() throws IOException {
         String RESOURCES_PATH = "src/main/resources/";
         String JSON_PATH = "films.json";

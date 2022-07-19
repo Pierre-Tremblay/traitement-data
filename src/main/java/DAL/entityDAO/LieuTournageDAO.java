@@ -14,10 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+/**
+ * Classe LieuTournageDAO qui permet la gestion des lieux de tournage en BDD
+ */
 public class LieuTournageDAO implements DAO<LieuTournage> {
     EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     EntityManager em = emf.createEntityManager();
+
+    /*
+     * Création lieux de tournage en BDD
+     */
     @Override
     public void create(LieuTournage objet) throws DALException {
         try {
@@ -30,16 +36,25 @@ public class LieuTournageDAO implements DAO<LieuTournage> {
         }
     }
 
+    /*
+     * Mise à jour du lieu de tournage en BDD
+     */
     @Override
     public void update(LieuTournage objet) throws DALException {
 // non utilisé
     }
 
+    /*
+     * Suppression du lieu de tournage en BDD
+     */
     @Override
     public void delete(LieuTournage objet) throws DALException {
 // non utilisé
     }
 
+    /*
+     * Selection de l'ensemble des lieux de tournage en BDD
+     */
     @Override
     public List<LieuTournage> selectAll() throws DALException {
         ResultSet rs;
@@ -53,6 +68,9 @@ public class LieuTournageDAO implements DAO<LieuTournage> {
         return lieuTournageList;
     }
 
+    /*
+     * Selection du lieu de tournage par son ID en BDD
+     */
     @Override
     public LieuTournage selectById(long id) throws DALException {
         try {
